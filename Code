@@ -1,0 +1,78 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class WebCrawler {
+
+    private static final int MAX_THREADS = 5;  // Adjust the number of threads here
+    private static final ExecutorService executor = Executors.newFixedThreadPool(MAX_THREADS);
+    private static final ConcurrentHashMap<String, Boolean> visitedUrls = new ConcurrentHashMap<>();
+    private static final Pattern URL_PATTERN = Pattern.compile(
+        "href\\s*=\\s*\"(http[s]?://[^\"\\s]*)\"", Pattern.CASE_INSENSITIVE);
+
+    public static void main(String[] args) {
+        String startUrl = "https://example.com"; // Starting URL
+
+        // Start crawling
+        crawl(startUrl);
+
+        // Shutdown the executor service gracefully
+        executor.shutdown();
+    }
+
+    public static void crawl(String url) {
+        if (visitedUrls.putIfAbsent(url, true) != null) {
+            return;  // Skip already visited URLs
+        }
+
+        executor.submit(() -> {
+            try {
+                System.out.println("Crawling: " + url);
+                String content = fetchContent(url);
+
+                Set<String> links = extractLinks(content);
+                for (String link : links) {
+                    crawl(link);  // Recursive call for new links
+                }
+            } catch (Exception e) {
+                System.err.println("Failed to crawl " + url + ": " + e.getMessage());
+            }
+        });
+    }
+
+    // Fetch page content
+    private static String fetchContent(String urlStr) throws Exception {
+        StringBuilder content = new StringBuilder();
+        URL url = new URL(urlStr);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        connection.setConnectTimeout(5000);
+        connection.setReadTimeout(5000);
+
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                content.append(inputLine);
+            }
+        }
+        return content.toString();
+    }
+
+    // Extract links using regex
+    private static Set<String> extractLinks(String html) {
+        Set<String> links = new HashSet<>();
+        Matcher matcher = URL_PATTERN.matcher(html);
+        while (matcher.find()) {
+            links.add(matcher.group(1));
+        }
+        return links;
+    }
+}

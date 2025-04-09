@@ -99,7 +99,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 Contact
 
-For questions or suggestions, feel free to open an issue or reach out via email at your-email@example.com.
+For questions or suggestions, feel free to open an issue or reach out via email at adityasinha06841@gmail.com
 
 
 

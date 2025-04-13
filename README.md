@@ -2,29 +2,7 @@ Multithreaded Web Crawler in Java
 
 Overview
 
-This project is a multithreaded web crawler implemented in Java. It efficiently crawls web pages using multiple threads to improve performance and reduce crawling time.
-
-Features
-
-Multithreading for faster crawling
-
-URL queue management
-
-Respect for robots.txt
-
-Duplicate URL filtering
-
-Customizable depth of crawling
-
-Basic HTML parsing
-
-Prerequisites
-
-Ensure you have the following installed:
-
-Java Development Kit (JDK) 8 or later
-
-Apache Maven (optional, for dependency management)
+This project is a multitt)
 
 Installation
 

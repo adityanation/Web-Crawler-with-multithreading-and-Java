@@ -57,27 +57,6 @@ Dependencies
 
 JSoup for HTML parsing
 
-Apache HttpClient for making HTTP requests
-
-Contributing
-
-Fork the repository
-
-Create a new branch (git checkout -b feature-branch)
-
-Commit your changes (git commit -m 'Add new feature')
-
-Push to the branch (git push origin feature-branch)
-
-Create a Pull Request
-
-License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-Contact
-adityasinha06841@gmail.com
-
-
+Apache Ht
 
 

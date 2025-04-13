@@ -39,24 +39,6 @@ User-agent string
 
 Timeout settings
 
-Code Structure
-
-/multithreaded-web-crawler
-├── src/com/example/webcrawler
-│   ├── WebCrawler.java
-│   ├── CrawlerTask.java
-│   ├── URLQueue.java
-│   ├── RobotsTxtHandler.java
-│   ├── HTMLParser.java
-│   └── Config.java
-├── bin/
-├── libs/
-└── config.properties
-
-Dependencies
-
-JSoup for HTML parsing
-
-Apache Ht
+Code St
 
 
